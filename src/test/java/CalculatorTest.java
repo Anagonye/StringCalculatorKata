@@ -82,6 +82,18 @@ class CalculatorTest {
         Assertions.assertEquals(expected, Calculator.Add(argument));
     }
 
+    @Test
+    void test_add_when_given_argument_has_negatives_numbers_should_throw_negatives_not_allowed_exception(){
+        //given
+        String argument = "5,6,-10,11,7,-2,1";
+
+        //when
+        NegativesNotAllowedException exception = Assertions.assertThrows(NegativesNotAllowedException.class, () -> Calculator.Add(argument));
+
+        //then
+        Assertions.assertEquals("-10, -2, ", exception.getMessage());
+    }
+
 
 
 
