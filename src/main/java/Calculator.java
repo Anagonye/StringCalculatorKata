@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Calculator {
     //String Calculator Kata
-    //Step 5
+    //Step 6
 
     private Calculator(){}
 
@@ -15,7 +15,10 @@ public class Calculator {
         handleNegatives(getSplit(numbers));
         for(String number : getSplit(numbers)){
             try {
-                sum += number.isBlank() ? 0 : Integer.parseInt(number.trim());
+                int toAdd = number.isBlank() ? 0 : Integer.parseInt(number.trim());
+                if(toAdd <= 1000){
+                    sum += toAdd;
+                }
             }catch (NumberFormatException e){
                 throw new IllegalArgumentException();
             }
