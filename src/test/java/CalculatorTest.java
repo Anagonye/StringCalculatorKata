@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 
 class CalculatorTest {
@@ -32,14 +35,6 @@ class CalculatorTest {
 
     }
 
-    @Test
-    void test_add_when_given_argument_has_more_than_two_numbers_should_throw_illegal_argument_exception(){
-        //given
-        String argument = "3,4,6";
-
-        //then
-        Assertions.assertThrows(IllegalArgumentException.class, () -> Calculator.Add(argument));
-    }
 
     @Test
     void test_add_when_given_argument_is_null_should_throw_null_pointer_exception(){
@@ -60,18 +55,32 @@ class CalculatorTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> Calculator.Add(argument));
     }
 
-    @Test
-    void test_add_when_given_argument_has_numbers_separated_by_something_else_than_commas_should_return_illegal_argument_exception(){
-        //given
-        String argument = "4!5";
-        String argument2 = "4;5";
-        String argument3 = "4.5";
+    @ParameterizedTest
+    @ValueSource(strings = {"4!5","4;5","4.5"})
+    void test_add_when_given_argument_has_numbers_separated_by_something_else_than_commas_should_return_illegal_argument_exception(String argument){
 
-        //then
         Assertions.assertThrows(IllegalArgumentException.class, () -> Calculator.Add(argument));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> Calculator.Add(argument2));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> Calculator.Add(argument3));
     }
+    @ParameterizedTest
+    @CsvSource({
+            "90, '4,1,12,6,67'",
+            "11, '5,4,2'",
+            "3, '1,2'",
+            "1, '1'",
+            "125, '15,10,70,4,1,12,13'",
+            "0, ''",
+            "0, '0'",
+            "1024, '18,121,93,5,246,2,3,4,5,333,24,23,22,125"
+    })
+    void test_add_when_given_argument_has_unknown_number_of_numbers(int expected, String argument){
+
+        Assertions.assertEquals(expected, Calculator.Add(argument));
+    }
+
+
+
+
+
 
 
 }
