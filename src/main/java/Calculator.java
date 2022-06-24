@@ -1,6 +1,6 @@
 public class Calculator {
     //String Calculator Kata
-    //Step 2
+    //Step 3
 
     private Calculator(){}
 
@@ -8,7 +8,7 @@ public class Calculator {
         if(numbers == null){
             throw new NullPointerException();
         }
-        String[] splitNumbers = numbers.split(",");
+        String[] splitNumbers = numbers.split(",|\n");
 
 
         int sum = 0;
