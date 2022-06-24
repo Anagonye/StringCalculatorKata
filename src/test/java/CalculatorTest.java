@@ -2,7 +2,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 
 class CalculatorTest {
@@ -56,12 +55,6 @@ class CalculatorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"4!5","4;5","4.5"})
-    void test_add_when_given_argument_has_numbers_separated_by_something_else_than_commas_should_return_illegal_argument_exception(String argument){
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> Calculator.Add(argument));
-    }
-    @ParameterizedTest
     @CsvSource({
             "90, '4,1,12,6,67'",
             "11, '5,4,2'",
@@ -74,6 +67,13 @@ class CalculatorTest {
             "125, '15,10\n70,4\n1,12\n13'",
             "90, '4,1,12\n6,67'",
             "1024, '18\n121,93,5,246\n2,3,4,5,333,24,23,22,125",
+            "125, '//!\n15!10!70!4!1!12!13'",
+            "65, '//%\n16%14%5%2%8%20'",
+            "125, '//#\n15#10#70#4#1#12#13'",
+            "125, '//#d\n15#d10#d70#d4#d1#d12#d13'",
+            "125, '//#d!\n15#d!10#d!70#d!4#d!1#d!12#d!13'",
+            "125, '//#d!\n15#d!10#d!70,4\n1#d!12\n13'",
+            "161, '// \n15 10 70 41 12 13'"
 
 
     })
